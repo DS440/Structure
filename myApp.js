@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 
-htmlName = __dirname + "/views/index.html"
+htmlName = __dirname + "/views/BusinessLogin.html"
 app.get("/", function(req, res) {
   res.sendFile(htmlName);
 const mySecret = process.env['MESSAGE_STYLE']

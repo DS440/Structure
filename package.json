@@ -1,0 +1,25 @@
+{
+  "name": "structure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DS440/Structure.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DS440/Structure/issues"
+  },
+  "homepage": "https://github.com/DS440/Structure#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "fcc-express-bground": "^0.0.5"
+  }
+}
