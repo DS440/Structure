@@ -1,5 +1,5 @@
 {
-  "author":"Daren",
+  "author": "",
   "name": "ParkEZ",
   "version": "1.0.0",
   "description": "",
@@ -13,13 +13,13 @@
     "url": "git+https://github.com/DS440/Structure.git"
   },
   "keywords": [],
-  "author": "",
-  "license":  "UNLICENSED",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/DS440/Structure/issues"
   },
   "homepage": "https://github.com/DS440/Structure#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "fcc-express-bground": "^0.0.5"
   }
