@@ -1,37 +1,26 @@
 const btn = document.querySelector('#btn');
 
 btn.onclick = function(){
-    const emailInput = document.querySelector('#email');
+    const userInput = document.querySelector('#username');
     const passwordInput = document.querySelector('#password');
     
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    const uname = userInput.value;
+    const pword = passwordInput.value;
 
-    emailInput.value = "";
+    userInput.value = "";
     passwordInput.value = "";
 
-    fetch("http://localhost:5500/login", {
+    fetch("/index.html", {
         headers: {
             'Content-type' : 'application/json'
         },
         method: 'POST',
         body: JSON.stringify({
-            email: email,
-            password: password
+            username: uname,
+            password: pword
         })
     })
     .then(response => response.json())
     .then(data => parseData(data));
 };
 
-function parseData(data) {
-    if (data['success']) {
-        const body = document.querySelector('#body');
-        let firstname = data['firstname'];
-        let lastname = data['lastname'];
-        body.innerHTML = `<div> Welcome! ${firstname} ${lastname}. </div> \
-                          <a href='index.html'>Back to Login</a>`
-    } else {
-        alert('Login failed.');
-    }
-}
