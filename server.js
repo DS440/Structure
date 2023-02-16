@@ -1,13 +1,70 @@
 const express = require('express');
-const app = express();
+const session = require('express-session');
 const path = require('path');
+const app = express();
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
 
-// Serve static files from the "public" folder
-app.use(express.static(path.join(__dirname, 'public')));
+const con = mysql.createConnection({
+    host: "parkpal-instance-1.cp4hkrqf72vo.us-west-2.rds.amazonaws.com",
+    user: "admin",
+    password: "parkpal88888"
+});
 
-// Serve the login page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'BusinessLogin.html'));
+
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(session({
+  secret: 'secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // change to true in production if using HTTPS
+}));
+// http://localhost:3000/
+app.get('/', function(request, response) {
+	// Render login template
+	response.sendFile(path.join(__dirname, 'views/index.html'));
+});
+// http://localhost:3000/
+app.post('/auth', function(request, response) {
+	// Capture the input fields
+	const username = request.body.username;
+	const password = request.body.password;
+  const query = `SELECT * FROM business.users WHERE username = '${username}' AND password = '${password}'`;
+	// Ensure the input fields exists and are not empty
+	if (username && password) {
+		// Execute SQL query that'll select the business table from the database based on the specified username and password
+		con.query(query, function(error, results, fields) {
+			// If there is an issue with the query, output the error
+			if (error) throw error;
+			// If the account exists
+			if (results.length > 0) {
+				// Authenticate the user
+				request.session.loggedIn = true;
+				request.session.username = username;
+				// Redirect to home page
+				response.redirect('/dashboard');
+			} else {
+				response.send('Incorrect Username and/or Password!');
+			}			
+			response.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});
+
+// http://localhost:3000/dashboard
+
+app.get('/dashboard', function(request, response) {
+  if (request.session.loggedIn) {
+		response.sendFile(path.join(__dirname, 'views/dashboard.html'));
+	} else {
+		// Not logged in
+		response.redirect('/');
+	}
 });
 
 app.listen(3000, () => {
