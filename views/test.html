@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+</head>
+<body>
+  <nav class="navbar">
+      <a class="navbar-brand" href="#">ParkEZ</a>
+  </nav>
+    <div class="container-fluid">
+      <h1>Dashboard</h1>
+      <div class="row">
+          <div class="stats-section col-md-4">
+            <h3>Statistics</h3>
+            <div class="row stats">
+              <div class="card col-5">
+                <div class="card-body daily">
+                  <h5>Daily Users</h5>
+                  <p class='card-text' id="daily-users">500</p>
+                  </div>
+              </div>
+              <div class="card col-5">
+                <div class="card-body monthly">
+                  <h5>Monthly Users</h5>
+                  <p class='card-text'id="monthly-users">500</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="camera-section col-md-4">
+              <h3>Camera Signals</h3>
+              <div class="camera" id="camera-1">
+                <h3>Camera 1</h3>
+                <p class="signal" id="camera-1-signal">No Signal</p>
+                <p class="license-plate" id="camera-1-license-plate"></p>
+              </div>
+            <button type="button" class="btn btn-outline-primary" id="add-camera-button">Add Camera</button>
+          </div>
+      </div>
+      <div class="histogram-section">
+        <h2>Monthly Users Barchart</h2>
+        <div id="bar-chart"></div>
+      </div>
+      
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
