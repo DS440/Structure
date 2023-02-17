@@ -31,7 +31,7 @@ app.post('/auth', function(request, response) {
 	// Capture the input fields
 	const username = request.body.username;
 	const password = request.body.password;
-  const query = `SELECT * FROM business.users WHERE username = '${username}' AND password = '${password}'`;
+  const query = `SELECT * FROM business.BusinessUsers WHERE LotID = '${username}' AND password = '${password}'`;
 	// Ensure the input fields exists and are not empty
 	if (username && password) {
 		// Execute SQL query that'll select the business table from the database based on the specified username and password
@@ -60,7 +60,7 @@ app.post('/auth', function(request, response) {
 
 app.get('/dashboard', function(request, response) {
   if (request.session.loggedIn) {
-		response.sendFile(path.join(__dirname, 'views/dashboard.html'));
+		response.sendFile(path.join(__dirname, 'views/test.html'));
 	} else {
 		// Not logged in
 		response.redirect('/');
