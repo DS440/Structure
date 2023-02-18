@@ -60,7 +60,7 @@ app.post('/auth', function(request, response) {
 
 app.get('/dashboard', function(request, response) {
   if (request.session.loggedIn) {
-		response.sendFile(path.join(__dirname, 'views/test.html'));
+		response.sendFile(path.join(__dirname, 'views/dashboard.html'));
 	} else {
 		// Not logged in
 		response.redirect('/');
