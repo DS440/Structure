@@ -8,6 +8,26 @@ const percentageGrowthSpan = document.querySelector("#percentage-growth");
 const histogramCanvas = document.querySelector("#bar-chart");
 let cameraId = 0;
 
+const ctx = document.getElementById('bar-chart');    
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [{
+      label: '# of visitors',
+      data: [10, 55, 100, 130, 500, 780, 1020, 3000, 7000, 10000, 5400, 10020],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
 // Function to add a new camera to the camera section
 addCameraButton.onclick = function() {
   cameraId++;
@@ -16,17 +36,21 @@ addCameraButton.onclick = function() {
   camera.id = `camera-${cameraId}`;
   camera.innerHTML = `
     <h3>Camera ${cameraId}</h3>
-    <p class="signal" id="camera-${cameraId}-signal">No Signal</p>
-    <p class="license-plate" id="camera-${cameraId}-license-plate"></p>
+    <form method="post" action="/submit">
+		<label for="ip_address">Select Camera:</label>
+		<input type="file" id="camera${cameraId}" name="ip_address">
+    </label>
   `;
   cameras.appendChild(camera);
 }
-
+// <p class="signal" id="camera-${cameraId}-signal">No Signal</p>
+//     <p class="license-plate" id="camera-${cameraId}-license-plate"></p>
 deleteCameraButton.onclick = function() {
   const element = document.getElementById(`camera-${cameraId}`);
   element.remove();
   cameraId--;
 }
+
 
 // Function to update signal and license plate information for a specific camera
 function updateCameraSignal(cameraId, signal, licensePlate) {
@@ -38,19 +62,6 @@ function updateCameraSignal(cameraId, signal, licensePlate) {
 }
  const query = `SELECT * FROM appUser.User1_LPs WHERE LP_Num = '${licenseNum}' AND state = '${stateABV}'`;
 
-// Function to add a new camera to the camera section
-addCameraButton.onclick = function() {
-  cameraId++;
-  const camera = document.createElement("div");
-  camera.classList.add("camera");
-  camera.id = `camera-${cameraId}`;
-  camera.innerHTML = `
-    <h3>Camera ${cameraId}</h3>
-    <p class="signal" id="camera-${cameraId}-signal">No Signal</p>
-    <p class="license-plate" id="camera-${cameraId}-license-plate"></p>
-  `;
-  cameraSection.appendChild(camera);
-}
 
 // Function to update the daily and monthly user count
 function updateUserCount(daily, monthly) {
@@ -95,22 +106,10 @@ function updateHistogram(data) {
   });
 }
 
-// Add event listener to the add camera button to trigger the addCamera function
-addCameraButton.addEventListener("click", addCameraButton);
 
 // Call the functions to update the user count and histogram with initial data
 updateUserCount(100, 1000);
 
 updatePercentageGrowth("10%");
-
-let data = [
-  {
-    x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    y: [20, 14, 23],
-    type: 'bar'
-  }
-];
-
-Plotly.newPlot('2023 usage', data);
 
 updateHistogram(histogramData);

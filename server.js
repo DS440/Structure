@@ -5,10 +5,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
+
+const hostname = process.env['hostName']
+const DB_userName =  process.env['DB_userName']
+const DB_password = process.env['DB_password']
+
 const con = mysql.createConnection({
-    host: "parkpal-instance-1.cp4hkrqf72vo.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "parkpal88888"
+    host: hostname,
+    user: DB_userName,
+    password: DB_password
 });
 
 
@@ -66,6 +71,7 @@ app.get('/dashboard', function(request, response) {
 		response.redirect('/');
 	}
 });
+
 
 app.listen(3000, () => {
     console.log('Server running on http://localhost:3000');
